@@ -1,0 +1,22 @@
+﻿{
+    "excelFile": "c:\\Users\\Balazs\\Desktop\\IgniteSheet.xlsx",
+    "sheetName": "2016 dec",
+    "jiras": [
+        {
+            "display": "UPS JIRA",
+            "user": "bhideghety",
+            "password": "AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAnxt37KizVE6KznVnCw490gQAAAACAAAAAAAQZgAAAAEAACAAAABozATt2hYX2LEVZyVAcSzZljlcgcXjVopvYSsC9LNLDgAAAAAOgAAAAAIAACAAAABK5x034N2nqNCbKxmAk81vBU8+k7yEfYRTx4xuIsdK+zAAAAA6qM8JwJ/xZk+KrAExdeGQ8V8Xe7RaYol7DRbSy5j7SIdE8DsE6E6I23T/lr+avq5AAAAA9LCSMgNYdRr2iyouJx3yleBOjfKtGnyuRG60Af160JZs8cX2s4MhfCb3FWphrPRIrl1mDkBStGeRFwKv7/4qzA==",
+            "url": "https://universalplant.atlassian.net",
+            "timezone": "Central Standard Time",
+            "column": "F"
+        },
+        {
+            "display": "IGNITE JIRA",
+            "user": "bhideghety",
+            "password": "AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAnxt37KizVE6KznVnCw490gQAAAACAAAAAAAQZgAAAAEAACAAAACERzopXGmkbKADZd3n1fK6fkab3y4TaYrvhq47h4QIrAAAAAAOgAAAAAIAACAAAAD3BB1qRJjLD29hBT8w2k7nPH5+Am+wiAjmlvsUXz3wKTAAAACnPhbLniyofGS2XLcSPSKsYI3h2UffvpsKCJ+4PHgOhT9zuFv/2jrEjcQ/CsoxqnlAAAAAcfxanPnpes92+FiTrZerdcmC/Qf6YZ76KTRJTgFk4l5D0Ncw4YtIxBkR1zBSN4fOWM9mL9oVJFLuKBexgoicQg==",
+            "url": "https://ignitemedia.atlassian.net",
+            "timezone": "Central Standard Time",
+            "column": "G"
+        }
+    ]
+}
