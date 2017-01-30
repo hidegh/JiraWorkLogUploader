@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.buttonUploadWorklog = new System.Windows.Forms.Button();
             this.propertyGrid = new System.Windows.Forms.PropertyGrid();
             this.buttonSettingsSave = new System.Windows.Forms.Button();
@@ -117,6 +118,7 @@
             this.Controls.Add(this.buttonSettingsSave);
             this.Controls.Add(this.propertyGrid);
             this.Controls.Add(this.buttonUploadWorklog);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "JIRA uploader - main form...";
             this.Load += new System.EventHandler(this.MainForm_Load);
