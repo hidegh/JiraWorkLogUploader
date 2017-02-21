@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using JiraWorkLogUploader.Config;
 
 namespace JiraWorkLogUploader
 {
@@ -15,6 +17,7 @@ namespace JiraWorkLogUploader
         [STAThread]
         static void Main()
         {
+            // MAIN
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
@@ -28,7 +31,15 @@ namespace JiraWorkLogUploader
             // Add the event handler for handling non-UI thread exceptions to the event. 
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
 
+            // Init main form
             MainForm = new MainForm();
+
+
+            //
+            // Do some tests if necessary...
+
+
+            // Start app.
             Application.Run(MainForm);
         }
 

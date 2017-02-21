@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Text;
 using JiraWorkLogUploader.Config;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Linq;
 
 namespace JiraWorkLogUploader.Jira
 {
@@ -30,8 +33,8 @@ namespace JiraWorkLogUploader.Jira
             // var alteredDate = new DateTime(date.Year, date.Month, date.Day, 0, 0, 0, DateTimeKind.Unspecified);
 
             // HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Time Zone branch of the registry.
-            var destinationTimezone = TimeZoneInfo.FindSystemTimeZoneById(jira.Timezone);
-            var alteredDate = TimeZoneInfo.ConvertTime(date, destinationTimezone, TimeZoneInfo.Local);
+            var jiraTimezone = TimeZoneInfo.FindSystemTimeZoneById(jira.Timezone);
+            var alteredDate = TimeZoneInfo.ConvertTime(date, jiraTimezone, TimeZoneInfo.Local);
 
             var uri = new Uri(new Uri(jira.Url), "/rest/api/2/issue/" + Uri.EscapeUriString(issue) + "/worklog");
             var seconds = (int)(hours * 60 * 60);
@@ -46,6 +49,112 @@ namespace JiraWorkLogUploader.Jira
             //    throw new Exception("Work log exception: " + result.ReasonPhrase);
 
             return (int)result.StatusCode;
+        }
+
+        public static IEnumerable<string> GetIssuesWithModifiedWorklogOn(JiraSetting jira, DateTime includedStartDay, DateTime? excludedEndDay = null)
+        {
+            var uri = new Uri(new Uri(jira.Url), "/rest/api/2/search/");
+            var dateFrom = includedStartDay.Date;
+            var dateTo = (excludedEndDay ?? dateFrom.AddDays(1)).Date;
+            var data = new
+            {
+                jql = $"worklogDate >= '{dateFrom:yyyy-MM-dd}' and workLogDate < '{dateTo:yyyy-MM-dd}' and worklogAuthor=currentUser()"
+            };
+
+            var json = JsonConvert.SerializeObject(data, new JsonSerializerSettings() { DateTimeZoneHandling = DateTimeZoneHandling.Local, DateFormatString = "yyyy-MM-ddTHH:mm:ss.fffzz00" });
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var result = httpClient.SendAsync(new HttpRequestMessage() { Method = HttpMethod.Post, RequestUri = uri, Content = content }).Result;
+            var jsonOut = result.Content.ReadAsStringAsync().Result;
+
+            var jo = JObject.Parse(jsonOut);
+            var issueKeys = jo["issues"].Select(i => i["key"].ToObject<string>()).ToList();
+
+            return issueKeys;
+        }
+
+        public class Worklog
+        {
+            public string Self { get; set; }
+
+            public string Issue { get; set; }
+
+            [JsonIgnore]
+            public string Author { get; set; }
+
+            public int Id { get; set; }
+            public string Comment { get; set; }
+            public DateTime Started { get; set; }
+            public int TimeSpentSeconds { get; set; }
+
+            public override string ToString()
+            {
+                return $"{Started:yyyy/MMMM/dd HH:mm:ss} {TimeSpan.FromSeconds(TimeSpentSeconds).TotalHours:N2} {Comment}";
+            }
+        }
+
+        public static IEnumerable<Worklog> GetWorklogsFor(JiraSetting jira, string issue)
+        {
+            var uri = new Uri(new Uri(jira.Url), "/rest/api/2/issue/" + Uri.EscapeUriString(issue) + "/worklog");
+
+            var result = httpClient.SendAsync(new HttpRequestMessage() { Method = HttpMethod.Get, RequestUri = uri }).Result;
+            if (result.StatusCode != HttpStatusCode.OK)
+                throw new Exception("Login exception: " + result.ReasonPhrase);
+
+            var json = result.Content.ReadAsStringAsync().Result;
+            var jo = JObject.Parse(json);
+
+            var jiraTimeZone = TimeZoneInfo.FindSystemTimeZoneById(jira.Timezone);
+
+            var q = jo["worklogs"].Select(wl =>
+            {
+                var res = wl.ToObject<Worklog>();
+                res.Author = wl["author"]["key"].ToObject<string>();
+                res.Issue = issue;
+
+                var date = wl["started"].ToObject<DateTime>();
+
+                var alteredDate = TimeZoneInfo.ConvertTime(date, TimeZoneInfo.Local, jiraTimeZone);
+                res.Started = alteredDate;
+
+                return res;
+            })
+            .ToList();
+
+            return q;
+        }
+
+        public static IEnumerable<Worklog> GetWorklogsModifiedOn(JiraSetting jira, DateTime includedStartDay, DateTime? excludedEndDay = null)
+        {
+            var dateFrom = includedStartDay.Date;
+            var dateTo = (excludedEndDay ?? dateFrom.AddDays(1)).Date;
+
+            var issueKeys = GetIssuesWithModifiedWorklogOn(jira, dateFrom, dateTo);
+
+            var worklogs = new List<Worklog>();
+
+            foreach (var issueKey in issueKeys)
+            {
+                var wl = GetWorklogsFor(jira, issueKey);
+                worklogs.AddRange(wl);
+            }
+
+            var filteredWorklogs = worklogs
+                .Where(i => i.Started >= dateFrom && i.Started <= dateTo)
+                .OrderBy(i=>i.Started)
+                .ThenBy(i=>i.Issue)
+                .ToList();
+
+            return filteredWorklogs;
+        }
+
+        public static int DeleteWorklog(string worklogUrl)
+        {
+            var result = httpClient.SendAsync(new HttpRequestMessage() { Method = HttpMethod.Delete, RequestUri = new Uri(worklogUrl) }).Result;
+            if (result.StatusCode != HttpStatusCode.NoContent)
+                throw new Exception("Delete failed: " + result.ReasonPhrase);
+
+            return (int) result.StatusCode;
         }
     }
 }

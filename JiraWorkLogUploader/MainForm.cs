@@ -288,5 +288,11 @@ namespace JiraWorkLogUploader
         {
             LoadSettings();
         }
+
+        private void buttonDeleteWorklogs_Click(object sender, EventArgs e)
+        {
+            var dialog = new DeleteWorklogs();
+            var result = dialog.ShowDialog();
+        }
     }
 }
