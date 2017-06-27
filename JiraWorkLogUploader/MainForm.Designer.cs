@@ -37,14 +37,15 @@
             this.toolStripProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.statusStripProgress = new System.Windows.Forms.StatusStrip();
             this.buttonDeleteWorklogs = new System.Windows.Forms.Button();
+            this.checkBoxIncludeToday = new System.Windows.Forms.CheckBox();
             this.statusStripProgress.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonUploadWorklog
             // 
             this.buttonUploadWorklog.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonUploadWorklog.Location = new System.Drawing.Point(16, 484);
-            this.buttonUploadWorklog.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonUploadWorklog.Location = new System.Drawing.Point(137, 482);
+            this.buttonUploadWorklog.Margin = new System.Windows.Forms.Padding(4);
             this.buttonUploadWorklog.Name = "buttonUploadWorklog";
             this.buttonUploadWorklog.Size = new System.Drawing.Size(100, 28);
             this.buttonUploadWorklog.TabIndex = 1;
@@ -57,8 +58,9 @@
             this.propertyGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.propertyGrid.LineColor = System.Drawing.SystemColors.ControlDark;
             this.propertyGrid.Location = new System.Drawing.Point(16, 15);
-            this.propertyGrid.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.propertyGrid.Margin = new System.Windows.Forms.Padding(4);
             this.propertyGrid.Name = "propertyGrid";
             this.propertyGrid.Size = new System.Drawing.Size(587, 462);
             this.propertyGrid.TabIndex = 2;
@@ -66,8 +68,8 @@
             // buttonSettingsSave
             // 
             this.buttonSettingsSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonSettingsSave.Location = new System.Drawing.Point(124, 484);
-            this.buttonSettingsSave.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonSettingsSave.Location = new System.Drawing.Point(245, 482);
+            this.buttonSettingsSave.Margin = new System.Windows.Forms.Padding(4);
             this.buttonSettingsSave.Name = "buttonSettingsSave";
             this.buttonSettingsSave.Size = new System.Drawing.Size(100, 28);
             this.buttonSettingsSave.TabIndex = 3;
@@ -78,8 +80,8 @@
             // buttonSettingsReload
             // 
             this.buttonSettingsReload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonSettingsReload.Location = new System.Drawing.Point(232, 484);
-            this.buttonSettingsReload.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonSettingsReload.Location = new System.Drawing.Point(395, 482);
+            this.buttonSettingsReload.Margin = new System.Windows.Forms.Padding(4);
             this.buttonSettingsReload.Name = "buttonSettingsReload";
             this.buttonSettingsReload.Size = new System.Drawing.Size(100, 28);
             this.buttonSettingsReload.TabIndex = 4;
@@ -118,7 +120,7 @@
             // buttonDeleteWorklogs
             // 
             this.buttonDeleteWorklogs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonDeleteWorklogs.Location = new System.Drawing.Point(503, 484);
+            this.buttonDeleteWorklogs.Location = new System.Drawing.Point(503, 482);
             this.buttonDeleteWorklogs.Margin = new System.Windows.Forms.Padding(4);
             this.buttonDeleteWorklogs.Name = "buttonDeleteWorklogs";
             this.buttonDeleteWorklogs.Size = new System.Drawing.Size(100, 28);
@@ -127,11 +129,22 @@
             this.buttonDeleteWorklogs.UseVisualStyleBackColor = true;
             this.buttonDeleteWorklogs.Click += new System.EventHandler(this.buttonDeleteWorklogs_Click);
             // 
+            // checkBoxIncludeToday
+            // 
+            this.checkBoxIncludeToday.AutoSize = true;
+            this.checkBoxIncludeToday.Location = new System.Drawing.Point(16, 489);
+            this.checkBoxIncludeToday.Name = "checkBoxIncludeToday";
+            this.checkBoxIncludeToday.Size = new System.Drawing.Size(114, 21);
+            this.checkBoxIncludeToday.TabIndex = 7;
+            this.checkBoxIncludeToday.Text = "Include today";
+            this.checkBoxIncludeToday.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(619, 543);
+            this.Controls.Add(this.checkBoxIncludeToday);
             this.Controls.Add(this.buttonDeleteWorklogs);
             this.Controls.Add(this.statusStripProgress);
             this.Controls.Add(this.buttonSettingsReload);
@@ -139,7 +152,7 @@
             this.Controls.Add(this.propertyGrid);
             this.Controls.Add(this.buttonUploadWorklog);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
             this.Text = "JIRA uploader - main form...";
             this.Load += new System.EventHandler(this.MainForm_Load);
@@ -159,6 +172,7 @@
         internal System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
         internal System.Windows.Forms.ToolStripProgressBar toolStripProgressBar;
         private System.Windows.Forms.Button buttonDeleteWorklogs;
+        private System.Windows.Forms.CheckBox checkBoxIncludeToday;
     }
 }
 

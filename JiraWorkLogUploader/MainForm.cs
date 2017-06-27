@@ -53,7 +53,7 @@ namespace JiraWorkLogUploader
         // Worklog upload...
         //
 
-        private string GetUnhandledEntryDetails()
+        private string GetUnhandledEntryDetails(bool includeToday)
         {
             using (var p = new ProgressScope())
             {
@@ -68,6 +68,10 @@ namespace JiraWorkLogUploader
                     .Process(Settings.SheetName, Settings.Jiras, entry =>
                     {
                         var jiraIndex = Array.IndexOf(Settings.Jiras, entry.JiraSetting);
+
+                        // skip today items if not 'includeToday'
+                        if (entry.Date.Date == DateTime.Now.Date && includeToday == false)
+                            return;
 
                         totalCount++;
                         totalItems[jiraIndex]++;
@@ -97,7 +101,7 @@ namespace JiraWorkLogUploader
             }
         }
 
-        private bool UploadUnhandledEntries()
+        private bool UploadUnhandledEntries(bool includeToday)
         {
             using (var p = new ProgressScope())
             {
@@ -124,6 +128,10 @@ namespace JiraWorkLogUploader
 
                     processor.Process(Settings.SheetName, Settings.Jiras, entry =>
                     {
+                        // skip today items if not 'includeToday'
+                        if (entry.Date.Date == DateTime.Now.Date && includeToday == false)
+                            return;
+
                         // try to upload
                         var code = JiraApiHelper.LogWork(entry.JiraSetting, entry.Date, entry.Hours, entry.Issue, entry.Comment);
                         entry.SetUploadResult(code);
@@ -222,13 +230,15 @@ namespace JiraWorkLogUploader
 
         private void buttonUploadWorklog_Click(object sender, EventArgs e)
         {
-            var fetchDetails = GetUnhandledEntryDetails();
+            var includeToday = checkBoxIncludeToday.Checked;
+
+            var fetchDetails = GetUnhandledEntryDetails(includeToday);
 
             var dialogResult = MessageBox.Show(fetchDetails, "Do you want to upload excel sheet entries to JIRA?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dialogResult != DialogResult.Yes)
                 return;
 
-            var success = UploadUnhandledEntries();
+            var success = UploadUnhandledEntries(includeToday);
             if (success)
             {
                 SaveSettings();
