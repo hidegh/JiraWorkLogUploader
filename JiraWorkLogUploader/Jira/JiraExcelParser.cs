@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using JiraWorkLogUploader.Config;
+using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 
 namespace JiraWorkLogUploader.Jira
@@ -27,13 +28,32 @@ namespace JiraWorkLogUploader.Jira
             return this;
         }
 
+        private int FindFirstRow(ISheet ws)
+        {
+            var firstRow = 0;
+            var lastRowNum = ws.LastRowNum;
+            var currentDate = null as DateTime?;
+
+            for (int r = firstRow; r < lastRowNum; r++)
+            {
+                // get row
+                var row = ws.GetRow(r);
+                var firstCellInrow = row.GetCell(0);
+
+                if (firstCellInrow.StringCellValue == "Day")
+                    return r + 1;
+            }
+
+            throw new Exception("Could not find cell in column A containing text 'Day'.");
+        }
+
         public void Process(string excelSheet, JiraSetting[] jiras, Action<JiraExcelEntry> entryHandler)
         {
             // get sheet
             var ws = Workbook.GetSheet(excelSheet);
 
             // iterate through rows
-            var firstRow = 5 - 1;
+            var firstRow = FindFirstRow(ws);
             var lastRowNum = ws.LastRowNum;
             var currentDate = null as DateTime?;
 
