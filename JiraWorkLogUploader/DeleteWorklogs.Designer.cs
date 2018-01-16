@@ -44,11 +44,11 @@
             this.jiraSettingBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.listViewWorklogs = new System.Windows.Forms.ListView();
             this.columnHeaderSelector = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderIssue = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderHours = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderAuthor = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderComment = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderAuthor = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.jiraSettingBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -137,11 +137,11 @@
             this.listViewWorklogs.CheckBoxes = true;
             this.listViewWorklogs.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeaderSelector,
-            this.columnHeaderDate,
             this.columnHeaderIssue,
+            this.columnHeaderDate,
             this.columnHeaderHours,
-            this.columnHeaderAuthor,
-            this.columnHeaderComment});
+            this.columnHeaderComment,
+            this.columnHeaderAuthor});
             listViewItem1.StateImageIndex = 0;
             this.listViewWorklogs.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
             listViewItem1});
@@ -156,26 +156,26 @@
             // 
             this.columnHeaderSelector.Text = "Self";
             // 
-            // columnHeaderDate
-            // 
-            this.columnHeaderDate.Text = "Date";
-            // 
             // columnHeaderIssue
             // 
             this.columnHeaderIssue.Text = "Issue";
+            // 
+            // columnHeaderDate
+            // 
+            this.columnHeaderDate.Text = "Date";
             // 
             // columnHeaderHours
             // 
             this.columnHeaderHours.Text = "Hours";
             // 
-            // columnHeaderAuthor
-            // 
-            this.columnHeaderAuthor.Text = "Author";
-            // 
             // columnHeaderComment
             // 
             this.columnHeaderComment.Text = "Comment";
-            this.columnHeaderComment.Width = 31;
+            this.columnHeaderComment.Width = 99;
+            // 
+            // columnHeaderAuthor
+            // 
+            this.columnHeaderAuthor.Text = "Author";
             // 
             // DeleteWorklogs
             // 

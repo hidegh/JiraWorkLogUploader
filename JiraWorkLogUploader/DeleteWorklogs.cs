@@ -67,7 +67,6 @@ namespace JiraWorkLogUploader
                     lvItem.SubItems.Add(new ListViewItem.ListViewSubItem() { Text = d.Issue });
                     lvItem.SubItems.Add(new ListViewItem.ListViewSubItem() { Text = d.Started.ToString("yyyy MMMM dd ddd") });
                     lvItem.SubItems.Add(new ListViewItem.ListViewSubItem() { Text = TimeSpan.FromSeconds(d.TimeSpentSeconds).TotalHours.ToString("00.00") });
-                    lvItem.SubItems.Add(new ListViewItem.ListViewSubItem() { Text = d.Author });
                     lvItem.SubItems.Add(new ListViewItem.ListViewSubItem() { Text = d.Comment });
                     listViewWorklogs.Items.Add(lvItem);
                 }
