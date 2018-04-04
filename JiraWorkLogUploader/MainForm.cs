@@ -69,6 +69,10 @@ namespace JiraWorkLogUploader
                     {
                         var jiraIndex = Array.IndexOf(Settings.Jiras, entry.JiraSetting);
 
+                        // skip future dates
+                        if (entry.Date.Date > DateTime.Now.Date)
+                            return;
+
                         // skip today items if not 'includeToday'
                         if (entry.Date.Date == DateTime.Now.Date && includeToday == false)
                             return;
@@ -128,6 +132,10 @@ namespace JiraWorkLogUploader
 
                     processor.Process(Settings.SheetName, Settings.Jiras, entry =>
                     {
+                        // skip future dates
+                        if (entry.Date.Date > DateTime.Now.Date)
+                            return;
+
                         // skip today items if not 'includeToday'
                         if (entry.Date.Date == DateTime.Now.Date && includeToday == false)
                             return;
