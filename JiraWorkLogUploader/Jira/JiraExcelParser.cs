@@ -40,7 +40,7 @@ namespace JiraWorkLogUploader.Jira
                 var row = ws.GetRow(r);
                 var firstCellInrow = row.GetCell(0);
 
-                if (firstCellInrow.StringCellValue == "Day")
+                if (firstCellInrow != null && firstCellInrow.StringCellValue == "Day")
                     return r + 1;
             }
 
