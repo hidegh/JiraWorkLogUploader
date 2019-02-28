@@ -40,8 +40,15 @@ namespace JiraWorkLogUploader.Jira
                 var row = ws.GetRow(r);
                 var firstCellInrow = row.GetCell(0);
 
-                if (firstCellInrow != null && firstCellInrow.StringCellValue == "Day")
-                    return r + 1;
+                if (firstCellInrow != null && firstCellInrow.CellType == CellType.String && firstCellInrow.StringCellValue == "Day")
+                {
+                    do
+                    {
+                        r = r + 1;
+                        if (ws.GetRow(r).Cells[0].CellType != CellType.Blank)
+                            return r;
+                    } while (true);
+                }
             }
 
             throw new Exception("Could not find cell in column A containing text 'Day'.");

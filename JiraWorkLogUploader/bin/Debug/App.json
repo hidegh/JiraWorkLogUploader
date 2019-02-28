@@ -1,9 +1,9 @@
 {
-  "ExcelFile": "C:\\z Archive\\! Firmy\\Reflection\\Konyveles 2018\\IgniteSheet_2018.xlsx",
-  "SheetName": "2018 april",
+  "ExcelFile": "C:\\z Archive\\! Firmy\\Reflection\\Konyveles 2019\\IgniteSheet_2019.xlsx",
+  "SheetName": "2019 febr",
   "Jiras": [
     {
-      "Password": "AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAyRa0fO8sn0uVjJCT8wFM8gQAAAACAAAAAAAQZgAAAAEAACAAAACMP5B7KdNF0fzBFkMIZbjzR7QE2ujUojSjDrtkJzKBQQAAAAAOgAAAAAIAACAAAACKpN6Ktd2unwybNOOIsgZa0Unf3u9ra2zeaE/rlgmHkkAAAACRNnPg6lMsMy8qC/yyjV9vVXHUfqb5F9xTSSrLltejMCkCjs62zR6dMVJB0jGCQIZe9Oq4Ta1tdwjXe1U3SHfZQAAAAFgYJx3j3Aboy1mRV+CBPDYSOB/bI8d6kyfAtDdWQTL1T0bWHv2e+xveV6K0UlWYaj3jNuskXSHprWDD6y4tfAg=",
+      "Password": "AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAqyu35EVXtUKyah3W2TBMRQQAAAACAAAAAAAQZgAAAAEAACAAAADnjnKvdpC/e5PlhGBqbeXgcoTM3Gmat4mYR8m3mj7XfQAAAAAOgAAAAAIAACAAAACsD+0/LMM7o4qyxtBR2DYIAkcainH/0YIE2RMQv2TvpEAAAACbgPsnbm5QRWfIzjcn7UXxgDswpSaS2EA76AMP8HhAFnMpy30AcYDCmMzu1ja+9kL+/qv/PC3EchxD8FT+l1FMQAAAAG5v7Uxic4fy+6xac8rWkodnKsOimz9Z1IjTWPhaFXS4pNY8JMz5FWOZnC8m+nhdQb5bH3A6orCXSvC1y9PLDLE=",
       "Display": "UPS JIRA",
       "User": "bhideghety",
       "Url": "https://universalplant.atlassian.net",
@@ -12,7 +12,7 @@
       "ColumnNo": 5
     },
     {
-      "Password": "AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAyRa0fO8sn0uVjJCT8wFM8gQAAAACAAAAAAAQZgAAAAEAACAAAACMP5B7KdNF0fzBFkMIZbjzR7QE2ujUojSjDrtkJzKBQQAAAAAOgAAAAAIAACAAAACKpN6Ktd2unwybNOOIsgZa0Unf3u9ra2zeaE/rlgmHkkAAAACRNnPg6lMsMy8qC/yyjV9vVXHUfqb5F9xTSSrLltejMCkCjs62zR6dMVJB0jGCQIZe9Oq4Ta1tdwjXe1U3SHfZQAAAAFgYJx3j3Aboy1mRV+CBPDYSOB/bI8d6kyfAtDdWQTL1T0bWHv2e+xveV6K0UlWYaj3jNuskXSHprWDD6y4tfAg=",
+      "Password": "AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAqyu35EVXtUKyah3W2TBMRQQAAAACAAAAAAAQZgAAAAEAACAAAABfQaMxYMNHTtgzVmuixO5zbUFlmRPzBgwLbL9hZ5kiLwAAAAAOgAAAAAIAACAAAABKnMiJwkdBjJ6hkMUqKwIqqPQl5pKpohPCIYgbThfXTUAAAACvApZ2nkpKjUvsu+QKF41Kn3plmmw41Hgwe3HfPfPs9DIYOnV7McdokQBJETgvJwDbxulQayfJKinJIwVOLs2jQAAAADbW6C0f/xruEOBe+VcuOO+pwOUqyu2lQ8w/XHyOmw8ZWCrP3dqc9oxQrtNq7kz35S/4KTkAEbSwe34MWQKnDwI=",
       "Display": "IGNITE JIRA",
       "User": "bhideghety",
       "Url": "https://ignitemedia.atlassian.net",

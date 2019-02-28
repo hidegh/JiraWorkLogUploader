@@ -8,6 +8,28 @@ namespace JiraWorkLogUploader.Jira
 {
     public class NpoiHelper
     {
+        public static void ThrowIfNOtDesiredType(ICell cell, CellType expectedType, bool allowBlank = true)
+        {
+            var cellType = GetUnderlyingCellType(cell);
+
+            if (allowBlank && cellType == CellType.Blank)
+                return;
+
+            if (cellType != expectedType)
+                throw new FormatException($"The cell '{NpoiHelper.RowColumnIndex(cell)}' is of type '{cellType}' whereas type '{expectedType}' is expected!");
+        }
+
+        public static CellType GetUnderlyingCellType(ICell cell)
+        {
+            return cell.CellType == CellType.Formula ? cell.CachedFormulaResultType : cell.CellType;
+        }
+
+
+        public static string RowColumnIndex(ICell cell)
+        {
+            return $"[{cell.RowIndex},{cell.ColumnIndex}]";
+        }
+
         public static IEnumerable<string> GetSheetNames(string excelFile)
         {
             using (FileStream file = new FileStream(excelFile, FileMode.Open, FileAccess.Read))
@@ -22,25 +44,29 @@ namespace JiraWorkLogUploader.Jira
         public static double? GetNumberCellValue(IRow row, int cellNumber)
         {
             var cell = row.GetCell(cellNumber, MissingCellPolicy.CREATE_NULL_AS_BLANK);
-            return cell?.NumericCellValue;
+            ThrowIfNOtDesiredType(cell, CellType.Numeric);
+            return cell.NumericCellValue;
         }
 
         public static DateTime? GetDateCellValue(IRow row, int cellNumber)
         {
             var cell = row.GetCell(cellNumber, MissingCellPolicy.CREATE_NULL_AS_BLANK);
-            return cell?.DateCellValue;
+            ThrowIfNOtDesiredType(cell, CellType.Numeric);
+            return cell.DateCellValue;
         }
 
         public static bool? GetBoolCellValue(IRow row, int cellNumber)
         {
             var cell = row.GetCell(cellNumber, MissingCellPolicy.CREATE_NULL_AS_BLANK);
-            return cell?.BooleanCellValue;
+            ThrowIfNOtDesiredType(cell, CellType.Boolean);
+            return cell.BooleanCellValue;
         }
 
         public static string GetStringCellValue(IRow row, int cellNumber)
         {
             var cell = row.GetCell(cellNumber, MissingCellPolicy.CREATE_NULL_AS_BLANK);
-            return cell != null ? cell.StringCellValue : "";
+            ThrowIfNOtDesiredType(cell, CellType.String);
+            return cell.StringCellValue;
         }
     }
 }
