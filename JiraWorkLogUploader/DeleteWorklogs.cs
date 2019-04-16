@@ -79,6 +79,11 @@ namespace JiraWorkLogUploader
 
         private void buttonDelete_Click(object sender, EventArgs e)
         {
+            // get selected jira setting
+            var jira = Settings.Jiras.FirstOrDefault(i => i.Url == ((JiraSetting)comboBoxJiraServer.SelectedItem)?.Url);
+            if (jira == null)
+                return;
+            
             // get items to delete
             var linkToRemovableWorklogs = new List<string>();
 
@@ -104,12 +109,9 @@ namespace JiraWorkLogUploader
                 // log in to jiras
                 p.SetText("Logging in to JIRA servers...");
 
-                Settings
-                    .Jiras
-                    .ToList()
-                    .ForEach(jira => {
-                        Jira.JiraApiHelper.Login(jira);
-                    });
+                // log in
+                p.SetText("Logging in to selected JIRA server...");
+                Jira.JiraApiHelper.Login(jira);
 
                 // delete
                 var deleted = 0;
@@ -117,7 +119,7 @@ namespace JiraWorkLogUploader
 
                 linkToRemovableWorklogs.ForEach(worklogUrl =>
                 {
-                    var code = Jira.JiraApiHelper.DeleteWorklog(worklogUrl);
+                    var code = Jira.JiraApiHelper.DeleteWorklog(jira, worklogUrl);
 
                     var isSuccessCode = code >= 200 && code < 300;
 
