@@ -10,12 +10,15 @@ using System.Linq;
 
 namespace JiraWorkLogUploader.Jira
 {
-    public class JiraApiHelper
+    public static class JiraApiHelper
     {
         private static HttpClient httpClient = new HttpClient();
 
         public static void Login(JiraSetting jira)
         {
+            // Bypassing it...
+            return;
+
             var uri = new Uri(new Uri(jira.Url), "/rest/auth/1/session");
             var data = new { username = jira.User, password = jira.Password };
 
@@ -27,6 +30,11 @@ namespace JiraWorkLogUploader.Jira
                 throw new Exception("Login exception: " + result.ReasonPhrase);
         }
 
+        public static void AppendAuthorizationHeader(this HttpRequestMessage httpRequestMessage, JiraSetting jira)
+        {
+            httpRequestMessage.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", System.Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes($"{jira.UserEmail}:{jira.ApiToken}")));
+        }
+
         public static int LogWork(JiraSetting jira, DateTime date, double hours, string issue, string description)
         {
             // NOTE: thought this will work...but doesn't...
@@ -36,14 +44,17 @@ namespace JiraWorkLogUploader.Jira
             var jiraTimezone = TimeZoneInfo.FindSystemTimeZoneById(jira.Timezone);
             var alteredDate = TimeZoneInfo.ConvertTime(date, jiraTimezone, TimeZoneInfo.Local);
 
-            var uri = new Uri(new Uri(jira.Url), "/rest/api/2/issue/" + Uri.EscapeUriString(issue) + "/worklog");
+            var uri = new Uri(new Uri(jira.Url), "/rest/api/latest/issue/" + Uri.EscapeUriString(issue) + "/worklog");
             var seconds = (int)(hours * 60 * 60);
             var data = new { started = alteredDate, timeSpentSeconds = seconds, comment = description };
 
             var json = JsonConvert.SerializeObject(data, new JsonSerializerSettings() { DateTimeZoneHandling = DateTimeZoneHandling.Local, DateFormatString = "yyyy-MM-ddTHH:mm:ss.fffzz00" });
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var result = httpClient.SendAsync(new HttpRequestMessage() { Method = HttpMethod.Post, RequestUri = uri, Content = content }).Result;
+            var request = new HttpRequestMessage() { Method = HttpMethod.Post, RequestUri = uri, Content = content };
+            request.AppendAuthorizationHeader(jira);
+
+            var result = httpClient.SendAsync(request).Result;
 
             //if (result.StatusCode != HttpStatusCode.Created)
             //    throw new Exception("Work log exception: " + result.ReasonPhrase);
@@ -53,7 +64,7 @@ namespace JiraWorkLogUploader.Jira
 
         public static IEnumerable<string> GetIssuesWithModifiedWorklogOn(JiraSetting jira, DateTime includedStartDay, DateTime? excludedEndDay = null)
         {
-            var uri = new Uri(new Uri(jira.Url), "/rest/api/2/search/");
+            var uri = new Uri(new Uri(jira.Url), "/rest/api/latest/search/");
             var dateFrom = includedStartDay.Date;
             var dateTo = (excludedEndDay ?? dateFrom.AddDays(1)).Date;
             var data = new
@@ -64,7 +75,10 @@ namespace JiraWorkLogUploader.Jira
             var json = JsonConvert.SerializeObject(data, new JsonSerializerSettings() { DateTimeZoneHandling = DateTimeZoneHandling.Local, DateFormatString = "yyyy-MM-ddTHH:mm:ss.fffzz00" });
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var result = httpClient.SendAsync(new HttpRequestMessage() { Method = HttpMethod.Post, RequestUri = uri, Content = content }).Result;
+            var request = new HttpRequestMessage() { Method = HttpMethod.Post, RequestUri = uri, Content = content };
+            request.AppendAuthorizationHeader(jira);
+
+            var result = httpClient.SendAsync(request).Result;
             var jsonOut = result.Content.ReadAsStringAsync().Result;
 
             var jo = JObject.Parse(jsonOut);
@@ -95,9 +109,12 @@ namespace JiraWorkLogUploader.Jira
 
         public static IEnumerable<Worklog> GetWorklogsFor(JiraSetting jira, string issue)
         {
-            var uri = new Uri(new Uri(jira.Url), "/rest/api/2/issue/" + Uri.EscapeUriString(issue) + "/worklog");
+            var uri = new Uri(new Uri(jira.Url), "/rest/api/latest/issue/" + Uri.EscapeUriString(issue) + "/worklog");
 
-            var result = httpClient.SendAsync(new HttpRequestMessage() { Method = HttpMethod.Get, RequestUri = uri }).Result;
+            var request = new HttpRequestMessage() { Method = HttpMethod.Get, RequestUri = uri };
+            request.AppendAuthorizationHeader(jira);
+
+            var result = httpClient.SendAsync(request).Result;
             if (result.StatusCode != HttpStatusCode.OK)
                 throw new Exception("Login exception: " + result.ReasonPhrase);
 
@@ -148,9 +165,12 @@ namespace JiraWorkLogUploader.Jira
             return filteredWorklogs;
         }
 
-        public static int DeleteWorklog(string worklogUrl)
+        public static int DeleteWorklog(JiraSetting jira, string worklogUrl)
         {
-            var result = httpClient.SendAsync(new HttpRequestMessage() { Method = HttpMethod.Delete, RequestUri = new Uri(worklogUrl) }).Result;
+            var request = new HttpRequestMessage() { Method = HttpMethod.Delete, RequestUri = new Uri(worklogUrl) };
+            request.AppendAuthorizationHeader(jira);
+
+            var result = httpClient.SendAsync(request).Result;
             if (result.StatusCode != HttpStatusCode.NoContent)
                 throw new Exception("Delete failed: " + result.ReasonPhrase);
 

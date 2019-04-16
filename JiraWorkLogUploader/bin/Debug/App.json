@@ -1,24 +1,24 @@
-{
-  "ExcelFile": "C:\\z Archive\\! Firmy\\Reflection\\Konyveles 2019\\IgniteSheet_2019.xlsx",
-  "SheetName": "2019 febr",
-  "Jiras": [
-    {
-      "Password": "AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAqyu35EVXtUKyah3W2TBMRQQAAAACAAAAAAAQZgAAAAEAACAAAADnjnKvdpC/e5PlhGBqbeXgcoTM3Gmat4mYR8m3mj7XfQAAAAAOgAAAAAIAACAAAACsD+0/LMM7o4qyxtBR2DYIAkcainH/0YIE2RMQv2TvpEAAAACbgPsnbm5QRWfIzjcn7UXxgDswpSaS2EA76AMP8HhAFnMpy30AcYDCmMzu1ja+9kL+/qv/PC3EchxD8FT+l1FMQAAAAG5v7Uxic4fy+6xac8rWkodnKsOimz9Z1IjTWPhaFXS4pNY8JMz5FWOZnC8m+nhdQb5bH3A6orCXSvC1y9PLDLE=",
-      "Display": "UPS JIRA",
-      "User": "bhideghety",
-      "Url": "https://universalplant.atlassian.net",
-      "Timezone": "Hawaiian Standard Time",
-      "Column": "F",
-      "ColumnNo": 5
-    },
-    {
-      "Password": "AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAqyu35EVXtUKyah3W2TBMRQQAAAACAAAAAAAQZgAAAAEAACAAAABfQaMxYMNHTtgzVmuixO5zbUFlmRPzBgwLbL9hZ5kiLwAAAAAOgAAAAAIAACAAAABKnMiJwkdBjJ6hkMUqKwIqqPQl5pKpohPCIYgbThfXTUAAAACvApZ2nkpKjUvsu+QKF41Kn3plmmw41Hgwe3HfPfPs9DIYOnV7McdokQBJETgvJwDbxulQayfJKinJIwVOLs2jQAAAADbW6C0f/xruEOBe+VcuOO+pwOUqyu2lQ8w/XHyOmw8ZWCrP3dqc9oxQrtNq7kz35S/4KTkAEbSwe34MWQKnDwI=",
-      "Display": "IGNITE JIRA",
-      "User": "bhideghety",
-      "Url": "https://ignitemedia.atlassian.net",
-      "Timezone": "Central Standard Time",
-      "Column": "G",
-      "ColumnNo": 6
-    }
-  ]
+﻿{
+    "excelFile": "C:\\z Archive\\! Firmy\\Reflection\\Konyveles 2019\\IgniteSheet_2019.xlsx",
+    "sheetName": "2019 apr",
+    "jiras": [
+        {
+            "display": "UPS JIRA",
+            "user": "bhideghety",
+            "password": "AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA0UioAAWHG0uBXREuKIvXcgQAAAACAAAAAAAQZgAAAAEAACAAAACJGv+sTUJUFFtV9pEzQGTCOOIIF8rGBAFIlqgxs4KzTgAAAAAOgAAAAAIAACAAAAD3e2eZwWCvAgAaQy2HsZ9OdyZETrf0lukj3h2xNWBJ6DAAAACmAAaqvTkXkZ+OfgROZHY2rb0y1azO/t6C146C2XIX21QQQ/9jSn+lA9l1EQboZFRAAAAArNnycJ+oTuqmjbxgv/kzv3/PM4ctxu042abL1bfhY4TahKUba+/iLrU1QRDoGF4ty0IL9UPtheGtXKHi3MbV4Q==",
+            "userEmail": "AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA0UioAAWHG0uBXREuKIvXcgQAAAACAAAAAAAQZgAAAAEAACAAAADNWw/PyVOEp/sIFlOlYqJp0voT88g6+KxboLebDJG1KQAAAAAOgAAAAAIAACAAAADx4QDnKUZ9dsY6LmsiKdZ478N5/+3oFgCXZ5Ad7JXrRFAAAAC3/h0QvxJOW+PsbMt/fNI/Mkok3ePs9JoM76MT3OIIvAPdQVWllqH0Zmd/6ITmUSUhJK7gHySIK7b3EkYpJGptNNplYJdJeICdftoBmZfKHEAAAADRLLpFd4APUo3v+uvFLbWs7uHsERD5W1wmBj1NRbbVosKbeZqo4YAZnc6WsbGCJN6P144FBNYSyoa5KAW/F2nM",
+            "apiToken": "AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA0UioAAWHG0uBXREuKIvXcgQAAAACAAAAAAAQZgAAAAEAACAAAAAOsNIBHocsKkes6ACyRW1WlL9nfI/nvBBWkRY1WmKdKgAAAAAOgAAAAAIAACAAAAD6KsHjaik5Y7mgqpGuaf+sKMewm/s2xJfyMxIhfJtWZ0AAAABkj8nirJvQYBqNw8eBHBocZYZptW4LZDecElUwoFXEmVupDP3NuJ2Ml5zcHJQ8LhyvR+3bZu/F/X+2XXAN5pPbQAAAAMol2YqzOLvYW0MDFm+NZ8+LVFcMendLN3PQEkNyLJ6k2J40GYqMUVU8LJI/3ll5ekw4mkoguVo9KdZ83hmZg3s=",
+            "url": "https://universalplant.atlassian.net",
+            "timezone": "Central Standard Time",
+            "column": "F"
+        } /*,
+        {
+            "display": "IGNITE JIRA",
+            "user": "bhideghety",
+            "password": "AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAyRa0fO8sn0uVjJCT8wFM8gQAAAACAAAAAAAQZgAAAAEAACAAAACMP5B7KdNF0fzBFkMIZbjzR7QE2ujUojSjDrtkJzKBQQAAAAAOgAAAAAIAACAAAACKpN6Ktd2unwybNOOIsgZa0Unf3u9ra2zeaE/rlgmHkkAAAACRNnPg6lMsMy8qC/yyjV9vVXHUfqb5F9xTSSrLltejMCkCjs62zR6dMVJB0jGCQIZe9Oq4Ta1tdwjXe1U3SHfZQAAAAFgYJx3j3Aboy1mRV+CBPDYSOB/bI8d6kyfAtDdWQTL1T0bWHv2e+xveV6K0UlWYaj3jNuskXSHprWDD6y4tfAg=",
+            "url": "https://ignitemedia.atlassian.net",
+            "timezone": "Central Standard Time",
+            "column": "G"
+        }*/
+    ]
 }

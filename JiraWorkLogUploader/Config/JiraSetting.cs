@@ -25,6 +25,26 @@ namespace JiraWorkLogUploader.Config
             set { _password = Protect(value); }
         }
 
+        [JsonProperty("UserEmail")] private string _userEmail;
+
+        [JsonIgnore]
+        [PasswordPropertyText(true)]
+        public string UserEmail
+        {
+            get { return string.IsNullOrEmpty(_userEmail) ? "" : SafeUnprotect(_userEmail); }
+            set { _userEmail = Protect(value); }
+        }
+
+        [JsonProperty("ApiToken")] private string _apiToken;
+
+        [JsonIgnore]
+        [PasswordPropertyText(true)]
+        public string ApiToken
+        {
+            get { return string.IsNullOrEmpty(_apiToken) ? "" : SafeUnprotect(_apiToken); }
+            set { _apiToken = Protect(value); }
+        }
+
         public string Url { get; set; }
 
         [TypeConverter(typeof(GenericEnumerableConverter))]
