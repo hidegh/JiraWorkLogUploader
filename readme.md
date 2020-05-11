@@ -7,6 +7,7 @@
 - 2019/04 Added support for JIRA's token based authentication
 - 2020/05 Added support for Azure DevOps 7pace Timetracker
 
+**Description:**
 For those who need to log time against JIRA, and don't use Tempo and it's Tracker feature, possibly the easiest way is to log (write) the time to an Excecl sheet first, then upload it to JIRA.
 
 A template Excel and a sort usage document is found inside the **docs** directory.
