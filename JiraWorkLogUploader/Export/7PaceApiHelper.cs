@@ -30,7 +30,7 @@ namespace JiraWorkLogUploader.Export
 
             var seconds = (int)(hours * 60 * 60);
             var data = new {
-                workItemd = int.Parse(workItemId),
+                workItemId = int.Parse(workItemId),
                 timestamp = date,
                 length = seconds,
                 comment = description
