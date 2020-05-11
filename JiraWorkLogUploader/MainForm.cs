@@ -144,13 +144,20 @@ namespace JiraWorkLogUploader
                             return;
 
                         // try to upload
-                        var code = JiraApiHelper.LogWork(entry.ExportSettings, entry.Date, entry.Hours, entry.Issue, entry.Comment);
+                        var code = 500;
+
+                        if (entry.ExportSettings.Type == ExportTypeEnum.Jira)
+                            code = JiraApiHelper.LogWork(entry.ExportSettings, entry.Date, entry.Hours, entry.Issue, entry.Comment);
+                        else if (entry.ExportSettings.Type == ExportTypeEnum.SevenPace)
+                            code = SevenPaceApiHelper.LogWork(entry.ExportSettings, entry.Date, entry.Hours, entry.Issue, entry.Comment);
+                        
+                        // set result
                         entry.SetUploadResult(code);
 
+                        // update stats and UI
                         var isSuccessCode = code >= 200 && code < 300;
 
-                        if (isSuccessCode)
-                            uploaded++;
+                        if (isSuccessCode) uploaded++;
                         else uploadFailed++;
 
                         p.SetText(string.Format("Uploading entries | Uploaded: {0}, Failed: {1}", uploaded, uploadFailed));
@@ -192,7 +199,7 @@ namespace JiraWorkLogUploader
 
                         if (!saveSuccess)
                             MessageBox.Show(
-                                "Could not save changes to excel! Please check tasks on JIRA and modify excel accordingly to avoid duplicity that next upload could generate.",
+                                "Could not save changes to excel! Please check tasks on servers and modify excel accordingly to avoid duplicity that next upload could generate.",
                                 "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
                     else
@@ -245,7 +252,7 @@ namespace JiraWorkLogUploader
 
             var fetchDetails = GetUnhandledEntryDetails(includeToday);
 
-            var dialogResult = MessageBox.Show(fetchDetails, "Do you want to upload excel sheet entries to JIRA?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            var dialogResult = MessageBox.Show(fetchDetails, "Do you want to upload excel sheet entries?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dialogResult != DialogResult.Yes)
                 return;
 
@@ -253,7 +260,7 @@ namespace JiraWorkLogUploader
             if (success)
             {
                 SaveSettings();
-                MessageBox.Show("Everything uploaded!", "Jira upload result", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Everything uploaded!", "Upload result", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 

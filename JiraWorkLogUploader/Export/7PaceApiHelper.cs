@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Specialized;
+using System.IO;
 using System.Net.Http;
 using System.Text;
 using JiraWorkLogUploader.Config;
@@ -18,11 +18,9 @@ namespace JiraWorkLogUploader.Export
 
         public static Uri Get7PaceUriFor(this ExportSettings settings, string command)
         {
-            var ub = new UriBuilder();
-            ub.Path = "worklogs";
-            ub.Query = new NameValueCollection() {
-                { "api-version", "3.0" }
-            }.ToString();
+            var ub = new UriBuilder(settings.Url);
+            ub.Path = (ub.Path ?? "").TrimEnd('/') + "/" + (command ?? "").TrimStart('/');
+            ub.Query = "api-version=3.0";
             return ub.Uri;
         }
 
@@ -32,7 +30,7 @@ namespace JiraWorkLogUploader.Export
 
             var seconds = (int)(hours * 60 * 60);
             var data = new {
-                workItemd = workItemId,
+                workItemd = int.Parse(workItemId),
                 timestamp = date,
                 length = seconds,
                 comment = description
