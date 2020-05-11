@@ -90,8 +90,8 @@ namespace JiraWorkLogUploader.Excel
                 if (hours == null || hours == 0)
                     continue;
 
-                // get task
-                var task = NpoiHelper.GetStringCellValue(row, 2);
+                // get task ID
+                var task = NpoiHelper.GetCellAsStringValue(row, 2);
                 if (string.IsNullOrWhiteSpace(task))
                     continue;
 

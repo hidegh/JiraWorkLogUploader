@@ -44,7 +44,7 @@
             // buttonUploadWorklog
             // 
             this.buttonUploadWorklog.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonUploadWorklog.Location = new System.Drawing.Point(103, 392);
+            this.buttonUploadWorklog.Location = new System.Drawing.Point(103, 552);
             this.buttonUploadWorklog.Name = "buttonUploadWorklog";
             this.buttonUploadWorklog.Size = new System.Drawing.Size(75, 23);
             this.buttonUploadWorklog.TabIndex = 1;
@@ -60,13 +60,13 @@
             this.propertyGrid.LineColor = System.Drawing.SystemColors.ControlDark;
             this.propertyGrid.Location = new System.Drawing.Point(12, 12);
             this.propertyGrid.Name = "propertyGrid";
-            this.propertyGrid.Size = new System.Drawing.Size(440, 375);
+            this.propertyGrid.Size = new System.Drawing.Size(440, 535);
             this.propertyGrid.TabIndex = 2;
             // 
             // buttonSettingsSave
             // 
             this.buttonSettingsSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonSettingsSave.Location = new System.Drawing.Point(184, 392);
+            this.buttonSettingsSave.Location = new System.Drawing.Point(184, 552);
             this.buttonSettingsSave.Name = "buttonSettingsSave";
             this.buttonSettingsSave.Size = new System.Drawing.Size(75, 23);
             this.buttonSettingsSave.TabIndex = 3;
@@ -77,7 +77,7 @@
             // buttonSettingsReload
             // 
             this.buttonSettingsReload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonSettingsReload.Location = new System.Drawing.Point(265, 392);
+            this.buttonSettingsReload.Location = new System.Drawing.Point(265, 552);
             this.buttonSettingsReload.Name = "buttonSettingsReload";
             this.buttonSettingsReload.Size = new System.Drawing.Size(75, 23);
             this.buttonSettingsReload.TabIndex = 4;
@@ -106,7 +106,7 @@
             this.toolStripProgressBar,
             this.toolStripStatusLabel});
             this.statusStripProgress.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
-            this.statusStripProgress.Location = new System.Drawing.Point(0, 421);
+            this.statusStripProgress.Location = new System.Drawing.Point(0, 581);
             this.statusStripProgress.Name = "statusStripProgress";
             this.statusStripProgress.Size = new System.Drawing.Size(464, 20);
             this.statusStripProgress.SizingGrip = false;
@@ -115,7 +115,7 @@
             // buttonDeleteWorklogs
             // 
             this.buttonDeleteWorklogs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonDeleteWorklogs.Location = new System.Drawing.Point(377, 392);
+            this.buttonDeleteWorklogs.Location = new System.Drawing.Point(377, 552);
             this.buttonDeleteWorklogs.Name = "buttonDeleteWorklogs";
             this.buttonDeleteWorklogs.Size = new System.Drawing.Size(75, 23);
             this.buttonDeleteWorklogs.TabIndex = 6;
@@ -127,8 +127,8 @@
             // 
             this.checkBoxIncludeToday.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBoxIncludeToday.AutoSize = true;
-            this.checkBoxIncludeToday.Location = new System.Drawing.Point(12, 396);
-            this.checkBoxIncludeToday.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.checkBoxIncludeToday.Location = new System.Drawing.Point(12, 556);
+            this.checkBoxIncludeToday.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxIncludeToday.Name = "checkBoxIncludeToday";
             this.checkBoxIncludeToday.Size = new System.Drawing.Size(90, 17);
             this.checkBoxIncludeToday.TabIndex = 7;
@@ -139,7 +139,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(464, 441);
+            this.ClientSize = new System.Drawing.Size(464, 601);
             this.Controls.Add(this.checkBoxIncludeToday);
             this.Controls.Add(this.buttonDeleteWorklogs);
             this.Controls.Add(this.statusStripProgress);
