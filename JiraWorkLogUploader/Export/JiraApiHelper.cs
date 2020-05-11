@@ -28,7 +28,7 @@ namespace JiraWorkLogUploader.Export
                 throw new Exception("Login exception: " + result.ReasonPhrase);
         }
 
-        public static void AppendAuthorizationHeader(this HttpRequestMessage httpRequestMessage, ExportSettings jira)
+        public static void AppendJiraAuthorizationHeader(this HttpRequestMessage httpRequestMessage, ExportSettings jira)
         {
             httpRequestMessage.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", System.Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes($"{jira.UserEmail}:{jira.ApiToken}")));
         }
@@ -50,7 +50,7 @@ namespace JiraWorkLogUploader.Export
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
             var request = new HttpRequestMessage() { Method = HttpMethod.Post, RequestUri = uri, Content = content };
-            request.AppendAuthorizationHeader(jira);
+            request.AppendJiraAuthorizationHeader(jira);
 
             var result = httpClient.SendAsync(request).Result;
 
@@ -74,7 +74,7 @@ namespace JiraWorkLogUploader.Export
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
             var request = new HttpRequestMessage() { Method = HttpMethod.Post, RequestUri = uri, Content = content };
-            request.AppendAuthorizationHeader(jira);
+            request.AppendJiraAuthorizationHeader(jira);
 
             var result = httpClient.SendAsync(request).Result;
             var jsonOut = result.Content.ReadAsStringAsync().Result;
@@ -110,7 +110,7 @@ namespace JiraWorkLogUploader.Export
             var uri = new Uri(new Uri(jira.Url), "/rest/api/latest/issue/" + Uri.EscapeUriString(issue) + "/worklog");
 
             var request = new HttpRequestMessage() { Method = HttpMethod.Get, RequestUri = uri };
-            request.AppendAuthorizationHeader(jira);
+            request.AppendJiraAuthorizationHeader(jira);
 
             var result = httpClient.SendAsync(request).Result;
             if (result.StatusCode != HttpStatusCode.OK)
@@ -166,7 +166,7 @@ namespace JiraWorkLogUploader.Export
         public static int DeleteWorklog(ExportSettings jira, string worklogUrl)
         {
             var request = new HttpRequestMessage() { Method = HttpMethod.Delete, RequestUri = new Uri(worklogUrl) };
-            request.AppendAuthorizationHeader(jira);
+            request.AppendJiraAuthorizationHeader(jira);
 
             var result = httpClient.SendAsync(request).Result;
             if (result.StatusCode != HttpStatusCode.NoContent)

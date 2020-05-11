@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using JiraWorkLogUploader.Ui;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace JiraWorkLogUploader.Config
 {
@@ -44,6 +45,9 @@ namespace JiraWorkLogUploader.Config
             get { return string.IsNullOrEmpty(_apiToken) ? "" : SafeUnprotect(_apiToken); }
             set { _apiToken = Protect(value); }
         }
+
+        [JsonConverter(typeof(StringEnumConverter))]
+        public ExportTypeEnum Type { get; set; }
 
         public string Url { get; set; }
 
