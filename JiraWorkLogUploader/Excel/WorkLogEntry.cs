@@ -2,11 +2,11 @@
 using JiraWorkLogUploader.Config;
 using NPOI.SS.UserModel;
 
-namespace JiraWorkLogUploader.Jira
+namespace JiraWorkLogUploader.Excel
 {
-    public class JiraExcelEntry
+    public class WorkLogEntry
     {
-        public JiraSetting JiraSetting { get; set; }
+        public ExportSettings ExportSettings { get; set; }
         public IRow Row { get; set; }
 
         public DateTime Date { get; set; }
@@ -16,7 +16,7 @@ namespace JiraWorkLogUploader.Jira
 
         public void SetUploadResult(int code)
         {
-            Row.GetCell(JiraSetting.ColumnNo).SetCellValue(code);
+            Row.GetCell(ExportSettings.ColumnNo).SetCellValue(code);
         }
     }
 }

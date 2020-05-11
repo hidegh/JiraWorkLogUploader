@@ -76,18 +76,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config\JiraSetting.cs" />
+    <Compile Include="Config\ExportSettings.cs" />
     <Compile Include="Config\AppSettings.cs" />
-    <Compile Include="DeleteWorklogs.cs">
+    <Compile Include="Ui\Jira\DeleteWorklogs.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DeleteWorklogs.Designer.cs">
+    <Compile Include="Ui\Jira\DeleteWorklogs.Designer.cs">
       <DependentUpon>DeleteWorklogs.cs</DependentUpon>
     </Compile>
-    <Compile Include="Jira\JiraApiHelper.cs" />
-    <Compile Include="Jira\JiraExcelEntry.cs" />
-    <Compile Include="Jira\JiraExcelParser.cs" />
-    <Compile Include="Jira\NpoiHelper.cs" />
+    <Compile Include="Export\JiraApiHelper.cs" />
+    <Compile Include="Excel\WorkLogEntry.cs" />
+    <Compile Include="Excel\ExcelParser.cs" />
+    <Compile Include="Excel\NpoiHelper.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,7 +102,7 @@
     <Compile Include="Ui\SerializableExpandableObjectConverter.cs" />
     <Compile Include="Utils\ToStringExtensions.cs" />
     <Compile Include="Utils\TypeUtilsEx.cs" />
-    <EmbeddedResource Include="DeleteWorklogs.resx">
+    <EmbeddedResource Include="Ui\Jira\DeleteWorklogs.resx">
       <DependentUpon>DeleteWorklogs.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">

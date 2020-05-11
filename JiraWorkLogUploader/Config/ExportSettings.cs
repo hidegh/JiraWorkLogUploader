@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 namespace JiraWorkLogUploader.Config
 {
     [TypeConverter(typeof(SerializableExpandableObjectConverter))]
-    public class JiraSetting
+    public class ExportSettings
     {
         public string Display { get; set; }
         public string User { get; set; }
@@ -60,6 +60,7 @@ namespace JiraWorkLogUploader.Config
         }
 
         [Browsable(false)]
+        [JsonIgnore]
         public int ColumnNo => Column.ToUpper()[0] - 'A';
 
         private string Protect(string clearText)

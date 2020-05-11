@@ -4,13 +4,13 @@ using JiraWorkLogUploader.Config;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 
-namespace JiraWorkLogUploader.Jira
+namespace JiraWorkLogUploader.Excel
 {
-    public class JiraExcelParser
+    public class ExcelParser
     {
         public XSSFWorkbook Workbook { get; }
 
-        public JiraExcelParser(string excelFileName)
+        public ExcelParser(string excelFileName)
         {
             using (FileStream fileReader = new FileStream(excelFileName, FileMode.Open, FileAccess.Read))
             {
@@ -18,7 +18,7 @@ namespace JiraWorkLogUploader.Jira
             }
         }
 
-        public JiraExcelParser Save(string excelFileName)
+        public ExcelParser Save(string excelFileName)
         {
             using (var fileWriter = new FileStream(excelFileName, FileMode.Create, FileAccess.ReadWrite))
             {
@@ -54,7 +54,7 @@ namespace JiraWorkLogUploader.Jira
             throw new Exception("Could not find cell in column A containing text 'Day'.");
         }
 
-        public void Process(string excelSheet, JiraSetting[] jiras, Action<JiraExcelEntry> entryHandler)
+        public void Process(string excelSheet, ExportSettings[] jiras, Action<WorkLogEntry> entryHandler)
         {
             // get sheet
             var ws = Workbook.GetSheet(excelSheet);
@@ -115,9 +115,9 @@ namespace JiraWorkLogUploader.Jira
                     {
                         // we got an unhandled entry (which we will probably upload)
                         entryHandler(
-                            new JiraExcelEntry()
+                            new WorkLogEntry()
                             {
-                                JiraSetting = jira,
+                                ExportSettings = jira,
                                 Row = row,
 
                                 Date = currentDate.Value,

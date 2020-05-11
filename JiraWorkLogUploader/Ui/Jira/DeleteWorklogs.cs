@@ -5,7 +5,7 @@ using System.Windows.Forms;
 using JiraWorkLogUploader.Config;
 using JiraWorkLogUploader.Ui;
 
-namespace JiraWorkLogUploader
+namespace JiraWorkLogUploader.Ui.Jira
 {
     public partial class DeleteWorklogs : Form
     {
@@ -26,8 +26,8 @@ namespace JiraWorkLogUploader
             }
 
             // Populate DDL, select first if exists
-            comboBoxJiraServer.DataSource = Settings.Jiras;
-            comboBoxJiraServer.SelectedIndex = Settings.Jiras.Length > 0 ? 0 : -1;
+            comboBoxJiraServer.DataSource = Settings.Exports;
+            comboBoxJiraServer.SelectedIndex = Settings.Exports.Length > 0 ? 0 : -1;
 
             // Set dates
             dateTimePickerFrom.Value = DateTime.Now.AddDays(1).Date;
@@ -42,17 +42,17 @@ namespace JiraWorkLogUploader
                 listViewWorklogs.Items.Clear();
 
                 // get selected jira setting
-                var jira = Settings.Jiras.FirstOrDefault(i => i.Url == ((JiraSetting)comboBoxJiraServer.SelectedItem)?.Url);
+                var jira = Settings.Exports.FirstOrDefault(i => i.Url == ((ExportSettings)comboBoxJiraServer.SelectedItem)?.Url);
                 if (jira == null)
                     return;
 
                 // log in
                 p.SetText("Logging in to selected JIRA server...");
-                Jira.JiraApiHelper.Login(jira);
+                Export.JiraApiHelper.Login(jira);
 
                 // get data
                 p.SetText("Fetching worklogs...");
-                var data = Jira.JiraApiHelper.GetWorklogsModifiedOn(
+                var data = Export.JiraApiHelper.GetWorklogsModifiedOn(
                     jira,
                     dateTimePickerFrom.Value,
                     dateTimePickerTo.Value
@@ -80,7 +80,7 @@ namespace JiraWorkLogUploader
         private void buttonDelete_Click(object sender, EventArgs e)
         {
             // get selected jira setting
-            var jira = Settings.Jiras.FirstOrDefault(i => i.Url == ((JiraSetting)comboBoxJiraServer.SelectedItem)?.Url);
+            var jira = Settings.Exports.FirstOrDefault(i => i.Url == ((ExportSettings)comboBoxJiraServer.SelectedItem)?.Url);
             if (jira == null)
                 return;
             
@@ -111,7 +111,7 @@ namespace JiraWorkLogUploader
 
                 // log in
                 p.SetText("Logging in to selected JIRA server...");
-                Jira.JiraApiHelper.Login(jira);
+                Export.JiraApiHelper.Login(jira);
 
                 // delete
                 var deleted = 0;
@@ -119,7 +119,7 @@ namespace JiraWorkLogUploader
 
                 linkToRemovableWorklogs.ForEach(worklogUrl =>
                 {
-                    var code = Jira.JiraApiHelper.DeleteWorklog(jira, worklogUrl);
+                    var code = Export.JiraApiHelper.DeleteWorklog(jira, worklogUrl);
 
                     var isSuccessCode = code >= 200 && code < 300;
 

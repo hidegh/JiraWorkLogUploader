@@ -1,4 +1,4 @@
-﻿namespace JiraWorkLogUploader
+﻿namespace JiraWorkLogUploader.Ui.Jira
 {
     partial class DeleteWorklogs
     {
@@ -127,7 +127,7 @@
             // 
             // jiraSettingBindingSource
             // 
-            this.jiraSettingBindingSource.DataSource = typeof(JiraWorkLogUploader.Config.JiraSetting);
+            this.jiraSettingBindingSource.DataSource = typeof(JiraWorkLogUploader.Config.ExportSettings);
             // 
             // listViewWorklogs
             // 

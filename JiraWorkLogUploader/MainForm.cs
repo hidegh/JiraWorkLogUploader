@@ -5,7 +5,8 @@ using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 using JiraWorkLogUploader.Config;
-using JiraWorkLogUploader.Jira;
+using JiraWorkLogUploader.Excel;
+using JiraWorkLogUploader.Export;
 using JiraWorkLogUploader.Ui;
 
 namespace JiraWorkLogUploader
@@ -58,16 +59,16 @@ namespace JiraWorkLogUploader
             using (var p = new ProgressScope())
             {
                 var totalCount = 0;
-                var totalItems = new int[Settings.Jiras.Length];
+                var totalItems = new int[Settings.Exports.Length];
                 var firstDate = null as DateTime?;
                 var lastDate = null as DateTime?;
 
                 p.SetText("Searching for entries to upload...");
 
-                new JiraExcelParser(Settings.ExcelFile)
-                    .Process(Settings.SheetName, Settings.Jiras, entry =>
+                new ExcelParser(Settings.ExcelFile)
+                    .Process(Settings.SheetName, Settings.Exports, entry =>
                     {
-                        var jiraIndex = Array.IndexOf(Settings.Jiras, entry.JiraSetting);
+                        var jiraIndex = Array.IndexOf(Settings.Exports, entry.ExportSettings);
 
                         // skip future dates
                         if (entry.Date.Date > DateTime.Now.Date)
@@ -96,7 +97,7 @@ namespace JiraWorkLogUploader
                 for (int i = 0; i < totalItems.Length; i++)
                 {
                     sb.AppendFormat(" - Group #{0,2:N0} [{1}] Count: {2,2:N0}, Name: {3}\r\n", i,
-                        Settings.Jiras[i].Column, totalItems[i], Settings.Jiras[i].Display);
+                        Settings.Exports[i].Column, totalItems[i], Settings.Exports[i].Display);
                 }
                 sb.AppendFormat("\r\n");
                 sb.AppendFormat("Date range from: {0:yyyy-MM-dd} to {1:yyyy-MM-dd}\r\n", firstDate, lastDate);
@@ -115,11 +116,11 @@ namespace JiraWorkLogUploader
                 var needToSave = false;
 
                 // create processor (loads excel)
-                var processor = new JiraExcelParser(Settings.ExcelFile);
+                var processor = new ExcelParser(Settings.ExcelFile);
 
                 // logins
                 p.SetText("Logging in to jira(s)...");
-                foreach (var jira in Settings.Jiras)
+                foreach (var jira in Settings.Exports)
                     JiraApiHelper.Login(jira);
 
                 var uploaded = 0;
@@ -130,7 +131,7 @@ namespace JiraWorkLogUploader
                     // parse and upload
                     p.SetText("Uploading entries...");
 
-                    processor.Process(Settings.SheetName, Settings.Jiras, entry =>
+                    processor.Process(Settings.SheetName, Settings.Exports, entry =>
                     {
                         // skip future dates
                         if (entry.Date.Date > DateTime.Now.Date)
@@ -141,7 +142,7 @@ namespace JiraWorkLogUploader
                             return;
 
                         // try to upload
-                        var code = JiraApiHelper.LogWork(entry.JiraSetting, entry.Date, entry.Hours, entry.Issue, entry.Comment);
+                        var code = JiraApiHelper.LogWork(entry.ExportSettings, entry.Date, entry.Hours, entry.Issue, entry.Comment);
                         entry.SetUploadResult(code);
 
                         var isSuccessCode = code >= 200 && code < 300;
@@ -309,7 +310,7 @@ namespace JiraWorkLogUploader
 
         private void buttonDeleteWorklogs_Click(object sender, EventArgs e)
         {
-            var dialog = new DeleteWorklogs();
+            var dialog = new Ui.Jira.DeleteWorklogs();
             var result = dialog.ShowDialog();
         }
     }

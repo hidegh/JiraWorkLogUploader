@@ -13,7 +13,7 @@ namespace JiraWorkLogUploader.Config
 
         [TypeConverter(typeof(GenericEnumerableConverter))]
         public string SheetName { get; set; }
-        public JiraSetting[] Jiras { get; set; }
+        public ExportSettings[] Exports { get; set; }
 
         [Browsable(false)]
         [JsonIgnore]

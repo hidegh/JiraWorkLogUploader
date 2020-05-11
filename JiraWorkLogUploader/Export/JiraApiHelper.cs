@@ -8,13 +8,13 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Linq;
 
-namespace JiraWorkLogUploader.Jira
+namespace JiraWorkLogUploader.Export
 {
     public static class JiraApiHelper
     {
         private static HttpClient httpClient = new HttpClient();
 
-        public static void Login(JiraSetting jira)
+        public static void Login(ExportSettings jira)
         {
             // Bypassing it...
             return;
@@ -30,12 +30,12 @@ namespace JiraWorkLogUploader.Jira
                 throw new Exception("Login exception: " + result.ReasonPhrase);
         }
 
-        public static void AppendAuthorizationHeader(this HttpRequestMessage httpRequestMessage, JiraSetting jira)
+        public static void AppendAuthorizationHeader(this HttpRequestMessage httpRequestMessage, ExportSettings jira)
         {
             httpRequestMessage.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", System.Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes($"{jira.UserEmail}:{jira.ApiToken}")));
         }
 
-        public static int LogWork(JiraSetting jira, DateTime date, double hours, string issue, string description)
+        public static int LogWork(ExportSettings jira, DateTime date, double hours, string issue, string description)
         {
             // NOTE: thought this will work...but doesn't...
             // var alteredDate = new DateTime(date.Year, date.Month, date.Day, 0, 0, 0, DateTimeKind.Unspecified);
@@ -62,7 +62,7 @@ namespace JiraWorkLogUploader.Jira
             return (int)result.StatusCode;
         }
 
-        public static IEnumerable<string> GetIssuesWithModifiedWorklogOn(JiraSetting jira, DateTime includedStartDay, DateTime? excludedEndDay = null)
+        public static IEnumerable<string> GetIssuesWithModifiedWorklogOn(ExportSettings jira, DateTime includedStartDay, DateTime? excludedEndDay = null)
         {
             var uri = new Uri(new Uri(jira.Url), "/rest/api/latest/search/");
             var dateFrom = includedStartDay.Date;
@@ -107,7 +107,7 @@ namespace JiraWorkLogUploader.Jira
             }
         }
 
-        public static IEnumerable<Worklog> GetWorklogsFor(JiraSetting jira, string issue)
+        public static IEnumerable<Worklog> GetWorklogsFor(ExportSettings jira, string issue)
         {
             var uri = new Uri(new Uri(jira.Url), "/rest/api/latest/issue/" + Uri.EscapeUriString(issue) + "/worklog");
 
@@ -141,7 +141,7 @@ namespace JiraWorkLogUploader.Jira
             return q;
         }
 
-        public static IEnumerable<Worklog> GetWorklogsModifiedOn(JiraSetting jira, DateTime includedStartDay, DateTime? excludedEndDay = null)
+        public static IEnumerable<Worklog> GetWorklogsModifiedOn(ExportSettings jira, DateTime includedStartDay, DateTime? excludedEndDay = null)
         {
             var dateFrom = includedStartDay.Date;
             var dateTo = (excludedEndDay ?? dateFrom.AddDays(1)).Date;
@@ -165,7 +165,7 @@ namespace JiraWorkLogUploader.Jira
             return filteredWorklogs;
         }
 
-        public static int DeleteWorklog(JiraSetting jira, string worklogUrl)
+        public static int DeleteWorklog(ExportSettings jira, string worklogUrl)
         {
             var request = new HttpRequestMessage() { Method = HttpMethod.Delete, RequestUri = new Uri(worklogUrl) };
             request.AppendAuthorizationHeader(jira);

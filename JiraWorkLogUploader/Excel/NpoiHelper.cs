@@ -4,7 +4,7 @@ using System.IO;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 
-namespace JiraWorkLogUploader.Jira
+namespace JiraWorkLogUploader.Excel
 {
     public class NpoiHelper
     {
