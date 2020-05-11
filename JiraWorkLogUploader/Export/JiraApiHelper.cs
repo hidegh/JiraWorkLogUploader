@@ -14,11 +14,9 @@ namespace JiraWorkLogUploader.Export
     {
         private static HttpClient httpClient = new HttpClient();
 
+        [Obsolete("This API endpoint is not supported any more!")]
         public static void Login(ExportSettings jira)
         {
-            // Bypassing it...
-            return;
-
             var uri = new Uri(new Uri(jira.Url), "/rest/auth/1/session");
             var data = new { username = jira.User, password = jira.Password };
 

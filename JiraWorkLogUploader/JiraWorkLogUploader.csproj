@@ -78,6 +78,7 @@
   <ItemGroup>
     <Compile Include="Config\ExportSettings.cs" />
     <Compile Include="Config\AppSettings.cs" />
+    <Compile Include="Export\7PaceApiHelper.cs" />
     <Compile Include="Ui\Jira\DeleteWorklogs.cs">
       <SubType>Form</SubType>
     </Compile>

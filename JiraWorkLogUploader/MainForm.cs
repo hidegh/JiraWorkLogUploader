@@ -118,10 +118,12 @@ namespace JiraWorkLogUploader
                 // create processor (loads excel)
                 var processor = new ExcelParser(Settings.ExcelFile);
 
+                /*
                 // logins
                 p.SetText("Logging in to jira(s)...");
                 foreach (var jira in Settings.Exports)
                     JiraApiHelper.Login(jira);
+                */
 
                 var uploaded = 0;
                 var uploadFailed = 0;

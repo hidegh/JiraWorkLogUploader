@@ -46,9 +46,11 @@ namespace JiraWorkLogUploader.Ui.Jira
                 if (jira == null)
                     return;
 
+                /*
                 // log in
                 p.SetText("Logging in to selected JIRA server...");
                 Export.JiraApiHelper.Login(jira);
+                */
 
                 // get data
                 p.SetText("Fetching worklogs...");
@@ -106,12 +108,14 @@ namespace JiraWorkLogUploader.Ui.Jira
 
             using (var p = new ProgressScope())
             {
+                /*
                 // log in to jiras
                 p.SetText("Logging in to JIRA servers...");
 
                 // log in
                 p.SetText("Logging in to selected JIRA server...");
                 Export.JiraApiHelper.Login(jira);
+                */
 
                 // delete
                 var deleted = 0;
