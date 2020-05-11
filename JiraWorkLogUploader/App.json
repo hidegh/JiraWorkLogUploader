@@ -11,7 +11,7 @@
             "Url": "https://universalplant.atlassian.net",
             "Timezone": "Central Standard Time",
             "Column": "F"
-        } /*,
+        },
         {
             "Display": "UPS AzureDevOps 7pace",
             "Password": null,
@@ -21,6 +21,6 @@
             "Url": "https://universalplantservices.timehub.7pace.com/api/rest",
             "Timezone": "Central Standard Time",
             "Column": "G"
-        } */
+        }
     ]
 }
