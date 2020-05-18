@@ -206,6 +206,12 @@ namespace JiraWorkLogUploader
                     {
                         // no change, no need for save, let user know...
                     }
+
+                    // final message
+                    if (uploadFailed == 0 && success /* so we did not had an exception before */)
+                        MessageBox.Show("Everything uploaded!", "Upload result", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    else
+                        MessageBox.Show("Some items could not be uploaded, check excel and do necessary modifications!", "Upload result", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
 
                 return success;
@@ -256,12 +262,7 @@ namespace JiraWorkLogUploader
             if (dialogResult != DialogResult.Yes)
                 return;
 
-            var success = UploadUnhandledEntries(includeToday);
-            if (success)
-            {
-                SaveSettings();
-                MessageBox.Show("Everything uploaded!", "Upload result", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+            UploadUnhandledEntries(includeToday);
         }
 
         //
