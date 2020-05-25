@@ -96,10 +96,10 @@ namespace JiraWorkLogUploader.Excel
                     continue;
 
                 // get comment
-                var comment = NpoiHelper.GetStringCellValue(row, 3);
+                var comment = NpoiHelper.GetCellAsStringValue(row, 3);
 
                 // get description
-                var description = NpoiHelper.GetStringCellValue(row, 4);
+                var description = NpoiHelper.GetCellAsStringValue(row, 4);
                 if (string.IsNullOrWhiteSpace(description))
                     description = "no description provided";
 

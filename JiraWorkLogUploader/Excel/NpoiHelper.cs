@@ -72,7 +72,8 @@ namespace JiraWorkLogUploader.Excel
         public static string GetCellAsStringValue(IRow row, int cellNumber)
         {
             var cell = row.GetCell(cellNumber, MissingCellPolicy.CREATE_NULL_AS_BLANK);
-            if (cell.CellType == CellType.String) return cell.StringCellValue;
+            if (cell.CellType == CellType.Blank) return string.Empty;
+            else if (cell.CellType == CellType.String) return cell.StringCellValue;
             else if (cell.CellType == CellType.Numeric) return cell.NumericCellValue.ToString();
             else if (cell.CellType == CellType.Boolean) return cell.BooleanCellValue.ToString();
             throw new FormatException($"The cell '{NpoiHelper.RowColumnIndex(cell)}' is of type '{cell.CellType}' whereas type 'string|numeric|boolean' is expected!");
